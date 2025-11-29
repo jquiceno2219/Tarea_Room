@@ -1,4 +1,4 @@
-package com.example.tarea_room
+package com.example.tarea_room.viewmodel
 
 
 import android.annotation.SuppressLint
@@ -13,11 +13,12 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.tarea_room.model.SortType
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -28,8 +29,9 @@ fun Screens(
     Scaffold(
         floatingActionButton = {
             FloatingActionButton(onClick = {
-                onEvent(ContactEvent.ShowDialog)
-            }) {
+                onEvent(ContactEvent.ShowDialog)},
+                modifier = Modifier.testTag("fab_add")
+            ) {
                 Icon(
                     imageVector = Icons.Filled.Add,
                     contentDescription = "Add contact"
@@ -38,12 +40,13 @@ fun Screens(
         },
     ) { _ ->
         if(state.isAddingContact) {
-            //AddContactDialog(state = state, onEvent = onEvent)
+            AddContactDialog(state = state, onEvent = onEvent)
         }
 
         LazyColumn(
             contentPadding = PaddingValues(16.dp),
-            modifier = Modifier.fillMaxSize(),
+            modifier = Modifier.fillMaxSize()
+                .testTag("list_contacts"),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             item {
@@ -51,7 +54,7 @@ fun Screens(
                     modifier = Modifier
                         .fillMaxWidth()
                         .horizontalScroll(rememberScrollState()),
-                    verticalAlignment = Alignment.CenterVertically
+                    verticalAlignment = CenterVertically
                 ) {
                     SortType.values().forEach { sortType ->
                         Row(
@@ -72,7 +75,7 @@ fun Screens(
                     }
                 }
             }
-            items(state.contacts) { contact ->
+            items(state.contacts, key = { it.id }) { contact ->
                 Row(
                     modifier = Modifier.fillMaxWidth()
                 ) {

@@ -1,4 +1,7 @@
-package com.example.tarea_room
+package com.example.tarea_room.viewmodel
+
+import com.example.tarea_room.data.Contact
+import com.example.tarea_room.model.SortType
 
 sealed interface ContactEvent {
     object SaveContact: ContactEvent

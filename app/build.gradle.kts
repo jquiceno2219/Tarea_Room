@@ -44,9 +44,14 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation(libs.androidx.compose.runtime.saveable)
+    implementation(libs.androidx.junit.ktx)
+    implementation(libs.androidx.compose.ui.test.junit4)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+    androidTestImplementation("androidx.test:runner")
+    androidTestImplementation("androidx.test:rules:1.7.0")
     implementation("androidx.activity:activity-compose:1.11.0")
     implementation("androidx.compose.material3:material3:1.4.0")
     implementation(libs.activity.compose)
@@ -57,8 +62,10 @@ dependencies {
     androidTestImplementation(platform(libs.androidx.compose.bom))
     implementation(libs.compose.material.icons)
 
-
     // Room
     implementation("androidx.room:room-runtime:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
+    testImplementation(kotlin("test"))
+    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.8.1")
+    testImplementation("junit:junit:4.13.2")
 }

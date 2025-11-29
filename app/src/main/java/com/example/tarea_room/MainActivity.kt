@@ -10,7 +10,12 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.room.Room
+import com.example.tarea_room.data.ContactDatabase
+import com.example.tarea_room.data.ContactRepository
+import com.example.tarea_room.data.ContactRepositoryImpl
 import com.example.tarea_room.ui.theme.Tarea_Room_Theme
+import com.example.tarea_room.viewmodel.ContactViewModel
+import com.example.tarea_room.viewmodel.Screens
 import kotlin.getValue
 
 class MainActivity : ComponentActivity() {
@@ -27,7 +32,8 @@ class MainActivity : ComponentActivity() {
         factoryProducer = {
             viewModelFactory {
                 initializer {
-                    ContactViewModel(db.dao)
+                    val repository = ContactRepositoryImpl(db.dao)
+                    ContactViewModel(repository)
                 }
             }
         }
